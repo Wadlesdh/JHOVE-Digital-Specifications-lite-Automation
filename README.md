@@ -1,6 +1,8 @@
 # JHOVE-Digital-Specifications-lite-Automation
 This repository is for bare-bones automation of writing digital specifications using JHOVE and an accompanying Python script. It's nothing fancy, but its simplicity allows the process to be versatile and easily integrated into more complex workflows by real programmers.
 
+Gist to program 7.16.26: https://gist.github.com/Wadlesdh/a1eeae89eec4c84b4aea60720e049d2c
+
 The only programs you need to use these instructions are JHOVE (and by extension Java) and Python.
 
 1. Run JHOVE and input the following command:
