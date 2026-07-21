@@ -19,4 +19,4 @@ The only programs you need to use these instructions are JHOVE (and by extension
 
 Changelog:
 
-July 21, 2026: Edited terminal script to also show validity and error messages in a separate list. Added a GUI script (NOTE: only runs as intended on Windows; Mac-compatible version is in the works).
+July 21, 2026: Edited terminal script to also show validity and error messages in a separate list. Added a GUI script (NOTE: only runs as intended on Windows; Mac-compatible version is in the works). Edited script to pull additional metadata, which by default goes into the csv output.
