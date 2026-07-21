@@ -6,7 +6,6 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, scrolledtext
 from pathlib import PurePath
 
-
 def process_xml(xml_file, output_csv):
     # JHOVE namespace
     ns = {
@@ -59,12 +58,49 @@ def process_xml(xml_file, output_csv):
             if m.text
         )
 
+        # Format and Version
+        format_elem = rep.find("jhove:format", ns)
+        format_name = format_elem.text if format_elem is not None else ""
+
+        version_elem = rep.find("jhove:version", ns)
+        format_version = version_elem.text if version_elem is not None else ""
+
+        # ICC Profile Name
+        icc_elem = rep.find(".//mix:iccProfileName", ns)
+        icc_profile = icc_elem.text if icc_elem is not None else ""
+
+        # Color Space
+        color_elem = rep.find(".//mix:colorSpace", ns)
+        color_space = color_elem.text if color_elem is not None else ""
+
+        # Bits Per Sample
+        bits_elem = rep.find(".//mix:bitsPerSampleValue", ns)
+        bits_per_sample = bits_elem.text if bits_elem is not None else ""
+
+        # Compression
+        compression_elem = rep.find(".//mix:compressionScheme", ns)
+        compression = compression_elem.text if compression_elem is not None else ""
+
+        # Resolution (xSamplingFrequency)
+        resolution_elem = rep.find(
+            ".//mix:xSamplingFrequency/mix:numerator",
+            ns
+        )
+        resolution = resolution_elem.text if resolution_elem is not None else ""
+
         rows.append([
             filename,
             size,
             width,
             height,
             md5,
+            format_name,
+            format_version,
+            icc_profile,
+            color_space,
+            bits_per_sample,
+            compression,
+            resolution,
             status,
             message
         ])
@@ -78,6 +114,13 @@ def process_xml(xml_file, output_csv):
             "ImageWidth",
             "ImageHeight",
             "MD5",
+            "Format",
+            "FormatVersion",
+            "ICCProfileName",
+            "ColorSpace",
+            "BitsPerSampleValue",
+            "Compression",
+            "Resolution",
             "Status",
             "Messages"
         ])
@@ -129,7 +172,7 @@ def run_process():
             f"Extracted {len(rows)} records:\n\n"
         )
 
-        for filename, size, width, height, md5, _, _ in rows:
+        for filename, size, width, height, md5, _, _, _, _, _, _, _, _, _ in rows:
             display_name = os.path.splitext(filename)[0]
             
             results_box.insert(
@@ -143,7 +186,7 @@ def run_process():
         results_box.insert(tk.END, "-" * 50 + "\n")
 
         # Equivalent of your second print block
-        for filename, _, _, _, _, status, message in rows:
+        for filename, _, _, _, _, _, _, _, _, _, _, _, status, message in rows:
             display_name = os.path.splitext(filename)[0]
             
             results_box.insert(
@@ -158,7 +201,6 @@ def run_process():
 
     except Exception as e:
         messagebox.showerror("Error", str(e))
-
 
 # GUI
 root = tk.Tk()
